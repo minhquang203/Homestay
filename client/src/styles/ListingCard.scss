@@ -1,0 +1,116 @@
+@import "./variable.scss";
+
+.listing-card {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .slider-container {
+    width: 100%;
+    max-width: 300px; /* Đặt max-width thay vì width cố định */
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative;
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+
+      .slide {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 270px;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; // Giữ đúng tỷ lệ ảnh
+          filter: brightness(85%);
+          transition: filter 0.3s ease; // Thêm hiệu ứng mượt mà cho filter
+        }
+
+        // Hiệu ứng zoom cho ảnh khi hover
+        &:hover img {
+          filter: brightness(100%);
+        }
+
+        // Nút điều hướng
+        .prev-button,
+        .next-button {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          padding: 6px;
+          border-radius: 50%;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 2;
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 1);
+          }
+        }
+
+        .prev-button {
+          left: 10px;
+        }
+
+        .next-button {
+          right: 10px;
+        }
+      }
+    }
+  }
+
+  // Thông tin về listing
+  h3 {
+    font-size: 18px;
+    margin: 5px 0;
+    font-weight: 600;
+    color: #333;
+  }
+
+  p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #777;
+  }
+
+  span {
+    font-weight: 700;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .favorite {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 22px;
+    color: #ff5e5e;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 3;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #ff3333; /* Đổi màu khi hover vào nút yêu thích */
+    }
+  }
+}
