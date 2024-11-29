@@ -1,15 +1,15 @@
-import "../styles/CreateListing.scss";
 import Navbar from "../components/Navbar";
-import { categories, types, facilities } from "../data";
+import { categories, facilities, types } from "../data";
+import "../styles/CreateListing.scss";
 
-import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
-import variables from "../styles/variable.scss";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { IoIosImages } from "react-icons/io";
+import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
 import { useState } from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { BiTrash } from "react-icons/bi";
+import { IoIosImages } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import variables from "../styles/variable.scss";
 
 const CreateListing = () => {
   const [category, setCategory] = useState("");
@@ -145,12 +145,12 @@ const CreateListing = () => {
       <Navbar />
 
       <div className="create-listing">
-        <h1>Publish Your Place</h1>
+        <h1>Đăng tải địa điểm của bạn</h1>
         <form onSubmit={handlePost}>
           <div className="create-listing_step1">
-            <h2>Step 1: Tell us about your place</h2>
+            <h2>Bước 1: Hãy kể về địa điểm của bạn</h2>
             <hr />
-            <h3>Which of these categories best describes your place?</h3>
+            <h3>Danh mục nào mô tả địa điểm của bạn tốt nhất?</h3>
             <div className="category-list">
               {categories?.map((item, index) => (
                 <div
@@ -166,7 +166,7 @@ const CreateListing = () => {
               ))}
             </div>
 
-            <h3>What type of place will guests have?</h3>
+            <h3>Khách sẽ sử dụng loại không gian nào?</h3>
             <div className="type-list">
               {types?.map((item, index) => (
                 <div
@@ -183,13 +183,13 @@ const CreateListing = () => {
               ))}
             </div>
 
-            <h3>Where's your place located?</h3>
+            <h3>Địa điểm của bạn nằm ở đâu?</h3>
             <div className="full">
               <div className="location">
-                <p>Street Address</p>
+                <p>Địa chỉ đường</p>
                 <input
                   type="text"
-                  placeholder="Street Address"
+                  placeholder="Địa chỉ đường"
                   name="streetAddress"
                   value={formLocation.streetAddress}
                   onChange={handleChangeLocation}
@@ -200,10 +200,10 @@ const CreateListing = () => {
 
             <div className="half">
               <div className="location">
-                <p>Apartment, Suite, etc. (if applicable)</p>
+                <p>Căn hộ, tầng, v.v.  (if applicable)</p>
                 <input
                   type="text"
-                  placeholder="Apt, Suite, etc. (if applicable)"
+                  placeholder="Căn hộ, tầng, v.v. (nếu có)"
                   name="aptSuite"
                   value={formLocation.aptSuite}
                   onChange={handleChangeLocation}
@@ -211,10 +211,10 @@ const CreateListing = () => {
                 />
               </div>
               <div className="location">
-                <p>City</p>
+                <p>Thành phố</p>
                 <input
                   type="text"
-                  placeholder="City"
+                  placeholder="Thành phố"
                   name="city"
                   value={formLocation.city}
                   onChange={handleChangeLocation}
@@ -225,10 +225,10 @@ const CreateListing = () => {
 
             <div className="half">
               <div className="location">
-                <p>Province</p>
+                <p>Tỉnh</p>
                 <input
                   type="text"
-                  placeholder="Province"
+                  placeholder="Tỉnh"
                   name="province"
                   value={formLocation.province}
                   onChange={handleChangeLocation}
@@ -236,10 +236,10 @@ const CreateListing = () => {
                 />
               </div>
               <div className="location">
-                <p>Country</p>
+                <p>Quốc gia</p>
                 <input
                   type="text"
-                  placeholder="Country"
+                  placeholder="Quốc gia"
                   name="country"
                   value={formLocation.country}
                   onChange={handleChangeLocation}
@@ -248,10 +248,10 @@ const CreateListing = () => {
               </div>
             </div>
 
-            <h3>Share some basics about your place</h3>
+            <h3>Chia sẻ một số thông tin cơ bản về địa điểm của bạn</h3>
             <div className="basics">
               <div className="basic">
-                <p>Guests</p>
+                <p>Số lượng khách</p>
                 <div className="basic_count">
                   <RemoveCircleOutline
                     onClick={() => {
@@ -278,7 +278,7 @@ const CreateListing = () => {
               </div>
 
               <div className="basic">
-                <p>Bedrooms</p>
+                <p>Phòng ngủ</p>
                 <div className="basic_count">
                   <RemoveCircleOutline
                     onClick={() => {
@@ -305,7 +305,7 @@ const CreateListing = () => {
               </div>
 
               <div className="basic">
-                <p>Beds</p>
+                <p>Giường</p>
                 <div className="basic_count">
                   <RemoveCircleOutline
                     onClick={() => {
@@ -332,7 +332,7 @@ const CreateListing = () => {
               </div>
 
               <div className="basic">
-                <p>Bathrooms</p>
+                <p>Phòng tắm</p>
                 <div className="basic_count">
                   <RemoveCircleOutline
                     onClick={() => {
@@ -361,10 +361,10 @@ const CreateListing = () => {
           </div>
 
           <div className="create-listing_step2">
-            <h2>Step 2: Make your place stand out</h2>
+            <h2>Bước 2: Làm cho địa điểm của bạn nổi bật</h2>
             <hr />
 
-            <h3>Tell guests what your place has to offer</h3>
+            <h3>Hãy cho khách biết địa điểm của bạn có những tiện nghi gì</h3>
             <div className="amenities">
               {facilities?.map((item, index) => (
                 <div
@@ -380,7 +380,7 @@ const CreateListing = () => {
               ))}
             </div>
 
-            <h3>Add some photos of your place</h3>
+            <h3>Thêm một vài bức ảnh về địa điểm của bạn</h3>
             <DragDropContext onDragEnd={handleDragPhoto}>
               <Droppable droppableId="photos" direction="horizontal">
                 {(provided) => (
@@ -403,7 +403,7 @@ const CreateListing = () => {
                           <div className="icon">
                             <IoIosImages />
                           </div>
-                          <p>Upload from your device</p>
+                          <p>Tải lên từ thiết bị của bạn</p>
                         </label>
                       </>
                     )}
@@ -460,46 +460,46 @@ const CreateListing = () => {
               </Droppable>
             </DragDropContext>
 
-            <h3>What make your place attractive and exciting?</h3>
+            <h3>Điều gì khiến địa điểm của bạn trở nên hấp dẫn?</h3>
             <div className="description">
-              <p>Title</p>
+              <p>Tiêu đề</p>
               <input
                 type="text"
-                placeholder="Title"
+                placeholder="Tiêu đề"
                 name="title"
                 value={formDescription.title}
                 onChange={handleChangeDescription}
                 required
               />
-              <p>Description</p>
+              <p>Mô tả</p>
               <textarea
                 type="text"
-                placeholder="Description"
+                placeholder="Mô tả"
                 name="description"
                 value={formDescription.description}
                 onChange={handleChangeDescription}
                 required
               />
-              <p>Highlight</p>
+              <p>Nổi bật</p>
               <input
                 type="text"
-                placeholder="Highlight"
+                placeholder="Nổi bật"
                 name="highlight"
                 value={formDescription.highlight}
                 onChange={handleChangeDescription}
                 required
               />
-              <p>Highlight details</p>
+              <p>Chi tiết nổi bật</p>
               <textarea
                 type="text"
-                placeholder="Highlight details"
+                placeholder="Chi tiết nổi bật"
                 name="highlightDesc"
                 value={formDescription.highlightDesc}
                 onChange={handleChangeDescription}
                 required
               />
-              <p>Now, set your PRICE</p>
-              <span>$</span>
+              <p>Bây giờ, hãy đặt giá</p>
+              <span>VND</span>
               <input
                 type="number"
                 placeholder="100"
@@ -513,7 +513,7 @@ const CreateListing = () => {
           </div>
 
           <button className="submit_btn" type="submit">
-            CREATE YOUR LISTING
+            TẠO DANH SÁCH CỦA BẠN
           </button>
         </form>
       </div>

@@ -23,8 +23,8 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}> {/* Thêm ThemeProvider */}
-          <CssBaseline /> {/* Đảm bảo các giá trị mặc định của MUI như font, margin, padding */}
+        <ThemeProvider theme={theme}> 
+          <CssBaseline /> 
           <App />
         </ThemeProvider>
       </PersistGate>
