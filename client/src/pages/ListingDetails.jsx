@@ -10,14 +10,15 @@ import { facilities } from "../data";
 import "../styles/ListingDetails.scss";
 
 const ListingDetails = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { listingId } = useParams();
-  const [listing, setListing] = useState(null);
+  const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
+  const [error, setError] = useState(null); // Trạng thái lỗi
+  const { listingId } = useParams(); // Lấy ID danh sách từ URL
+  const [listing, setListing] = useState(null); // Chi tiết của bất động sản
 
-  const navigate = useNavigate();
-  const customerId = useSelector((state) => state.user?._id);
+  const navigate = useNavigate(); // Điều hướng giữa các trang
+  const customerId = useSelector((state) => state.user?._id); // Lấy ID khách hàng từ Redux
 
+  // Hàm lấy chi tiết bất động sản
   const getListingDetails = useCallback(async () => {
     try {
       setLoading(true);
@@ -33,17 +34,18 @@ const ListingDetails = () => {
       setListing(data);
     } catch (err) {
       setError(err.message);
-      console.log("Fetch Listing Details Failed", err.message);
+      console.error("Lỗi khi tải chi tiết bất động sản:", err.message);
     } finally {
       setLoading(false);
     }
   }, [listingId]);
 
+  // Gọi hàm lấy dữ liệu khi component được render
   useEffect(() => {
     getListingDetails();
   }, [getListingDetails]);
 
-  /* BOOKING CALENDAR */
+  // Xử lý lịch đặt phòng
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -58,12 +60,12 @@ const ListingDetails = () => {
 
   const start = new Date(dateRange[0].startDate);
   const end = new Date(dateRange[0].endDate);
-  const dayCount = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+  const dayCount = Math.ceil((end - start) / (1000 * 60 * 60 * 24)); // Tính số ngày lưu trú
 
-  /* Booking */
+  // Xử lý đặt phòng
   const handleSubmit = async () => {
     if (!listing) {
-      console.log("Listing data chưa sẵn sàng.");
+      console.log("Thông tin bất động sản chưa sẵn sàng.");
       return;
     }
 
@@ -86,19 +88,21 @@ const ListingDetails = () => {
       });
 
       if (response.ok) {
-        navigate(`/${customerId}/trips`);
+        navigate(`/${customerId}/trips`); // Điều hướng đến trang đặt phòng
       } else {
-        console.log("Submit Booking Failed.");
+        console.error("Lỗi khi gửi thông tin đặt phòng.");
       }
     } catch (err) {
-      console.log("Submit Booking Failed.", err.message);
+      console.error("Lỗi khi gửi thông tin đặt phòng:", err.message);
     }
   };
 
+  // Hiển thị loader nếu đang tải dữ liệu
   if (loading) {
     return <Loader />;
   }
 
+  // Hiển thị lỗi nếu có lỗi
   if (error) {
     return <div className="error-message">Lỗi: {error}</div>;
   }
@@ -116,26 +120,26 @@ const ListingDetails = () => {
             <img
               key={index}
               src={`http://localhost:3002/${item.replace("public", "")}`}
-              alt="listing photos"
+              alt="Hình ảnh bất động sản"
             />
           ))}
         </div>
 
         <h2>
-          {listing?.type} in {listing?.city}, {listing?.province}, {listing?.country}
+          {listing?.type} tại {listing?.city}, {listing?.province}, {listing?.country}
         </h2>
         <p>
-          {listing?.guestCount} guest - {listing?.bedroomCount} bedroom(s) -{" "}
-          {listing?.bedCount} bed(s) - {listing?.bathroomCount} bathroom(s)
+          {listing?.guestCount} khách - {listing?.bedroomCount} phòng ngủ -{" "}
+          {listing?.bedCount} giường - {listing?.bathroomCount} phòng tắm
         </p>
         <hr />
         <div className="profile">
           <h3>
-            Hosted by {listing?.creator?.firstName} {listing?.creator?.lastName}
+            Được quản lý bởi {listing?.creator?.firstName} {listing?.creator?.lastName}
           </h3>
         </div>
         <hr />
-        <h3>Description</h3>
+        <h3>Mô tả</h3>
         <p>{listing?.description}</p>
         <h3>{listing?.highlight}</h3>
         <p>{listing?.highlightDesc}</p>
@@ -143,7 +147,7 @@ const ListingDetails = () => {
 
         <div className="booking">
           <div>
-            <h2>What this place offers?</h2>
+            <h2>Những gì nơi này cung cấp?</h2>
             <div className="amenities">
               {listing?.amenities[0]
                 ?.split(",")
@@ -158,18 +162,18 @@ const ListingDetails = () => {
             </div>
           </div>
 
-          <h2>How long do you want to stay?</h2>
+          <h2>Bạn muốn lưu trú bao lâu?</h2>
           <div className="date-range-calendar">
             <DateRange ranges={dateRange} onChange={handleSelect} />
             <h2>
-              ${listing?.price} x {dayCount} night(s)
+              ${listing?.price} x {dayCount} đêm
             </h2>
-            <h2>Total Price: ${listing?.price * dayCount}</h2>
-            <p>Start Date: {dateRange[0].startDate.toDateString()}</p>
-            <p>End Date: {dateRange[0].endDate.toDateString()}</p>
+            <h2>Tổng cộng: ${listing?.price * dayCount}</h2>
+            <p>Ngày bắt đầu: {dateRange[0].startDate.toDateString()}</p>
+            <p>Ngày kết thúc: {dateRange[0].endDate.toDateString()}</p>
 
             <button className="button" type="submit" onClick={handleSubmit}>
-              BOOKING
+              ĐẶT PHÒNG
             </button>
           </div>
         </div>

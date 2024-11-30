@@ -41,152 +41,230 @@ import {
 } from "react-icons/pi";
 import { TbBeach, TbIroning3, TbMountain, TbPool } from "react-icons/tb";
 
-// Danh mục các loại bất động sản
 export const categories = [
   {
-    label: "Tất cả", // Hiển thị tất cả các loại bất động sản
+    label: "All",
     icon: <BiWorld />,
   },
   {
-    img: "assets/beach_cat.jpg", // Hình ảnh danh mục bãi biển
-    label: "Bãi biển", // Tài sản gần bãi biển
+    img: "assets/beach_cat.jpg",
+    label: "Beachfront",
     icon: <TbBeach />,
-    description: "Tài sản này gần bãi biển!",
+    description: "This property is close to the beach!",
   },
   {
     img: "assets/windmill_cat.webp",
-    label: "Cối xay gió", // Tài sản có cối xay gió
+    label: "Windmills",
     icon: <GiWindmill />,
-    description: "Tài sản này có cối xay gió!",
+    description: "This property is has windmills!",
   },
   {
     img: "assets/modern_cat.webp",
-    label: "Thành phố hiện đại", // Tài sản ở thành phố nổi bật
+    label: "Iconic cities",
     icon: <MdOutlineVilla />,
-    description: "Tài sản này rất hiện đại!",
+    description: "This property is modern!",
   },
   {
     img: "assets/countryside_cat.webp",
-    label: "Nông thôn", // Tài sản ở vùng quê
+    label: "Countryside",
     icon: <TbMountain />,
-    description: "Tài sản này nằm ở vùng nông thôn!",
+    description: "This property is in the countryside!",
   },
   {
     img: "assets/pool_cat.jpg",
-    label: "Hồ bơi đẹp", // Tài sản có hồ bơi nổi bật
+    label: "Amazing Pools",
     icon: <TbPool />,
-    description: "Tài sản này có hồ bơi tuyệt đẹp!",
+    description: "This is property has a beautiful pool!",
   },
   {
     img: "assets/island_cat.webp",
-    label: "Hòn đảo", // Tài sản nằm trên đảo
+    label: "Islands",
     icon: <GiIsland />,
-    description: "Tài sản này nằm trên một hòn đảo!",
+    description: "This property is on an island!",
   },
   {
     img: "assets/lake_cat.webp",
-    label: "Gần hồ", // Tài sản gần hồ nước
+    label: "Lakefront",
     icon: <GiBoatFishing />,
-    description: "Tài sản này gần hồ nước!",
+    description: "This property is near a lake!",
   },
   {
     img: "assets/skiing_cat.jpg",
-    label: "Khu trượt tuyết", // Tài sản có khu vực trượt tuyết
+    label: "Ski-in/out",
     icon: <FaSkiing />,
-    description: "Tài sản này có hoạt động trượt tuyết!",
+    description: "This property has skiing activies!",
   },
   {
     img: "assets/castle_cat.webp",
-    label: "Lâu đài", // Tài sản là lâu đài
+    label: "Castles",
     icon: <GiCastle />,
-    description: "Tài sản này là một lâu đài cổ kính!",
+    description: "This property is an ancient castle!",
   },
   {
     img: "assets/cave_cat.jpg",
-    label: "Hang động", // Tài sản nằm trong hang động
+    label: "Caves",
     icon: <GiCaveEntrance />,
-    description: "Tài sản này nằm trong một hang động kỳ bí!",
+    description: "This property is in a spooky cave!",
   },
   {
     img: "assets/camping_cat.jpg",
-    label: "Cắm trại", // Tài sản có hoạt động cắm trại
+    label: "Camping",
     icon: <GiForestCamp />,
-    description: "Tài sản này cung cấp các hoạt động cắm trại!",
+    description: "This property offers camping activities!",
   },
   {
     img: "assets/arctic_cat.webp",
-    label: "Bắc Cực", // Tài sản nằm ở Bắc Cực
+    label: "Arctic",
     icon: <BsSnow />,
-    description: "Tài sản này nằm trong môi trường Bắc Cực!",
+    description: "This property is in arctic environment!",
   },
   {
     img: "assets/desert_cat.webp",
-    label: "Sa mạc", // Tài sản nằm ở sa mạc
+    label: "Desert",
     icon: <GiCactus />,
-    description: "Tài sản này nằm ở sa mạc!",
+    description: "This property is in the desert!",
   },
   {
     img: "assets/barn_cat.jpg",
-    label: "Nhà kho", // Tài sản nằm trong nhà kho
+    label: "Barns",
     icon: <GiBarn />,
-    description: "Tài sản này nằm trong một nhà kho!",
+    description: "This property is in a barn!",
   },
   {
     img: "assets/lux_cat.jpg",
-    label: "Sang trọng", // Tài sản cao cấp
+    label: "Luxury",
     icon: <IoDiamond />,
-    description: "Tài sản này hoàn toàn mới và sang trọng!",
+    description: "This property is brand new and luxurious!",
   },
 ];
 
-// Các loại phòng
 export const types = [
   {
-    name: "Toàn bộ chỗ ở", // Dành cho khách muốn thuê toàn bộ không gian
-    description: "Khách sẽ có toàn bộ chỗ ở cho riêng mình",
+    name: "An entire place",
+    description: "Guests have the whole place to themselves",
     icon: <FaHouseUser />,
   },
   {
-    name: "Phòng riêng", // Thuê một hoặc nhiều phòng trong nhà
+    name: "Room(s)",
     description:
-      "Khách sẽ có phòng riêng trong nhà, cùng với các khu vực chung",
+      "Guests have their own room in a house, plus access to shared places",
     icon: <BsFillDoorOpenFill />,
   },
   {
-    name: "Phòng chung", // Không gian chia sẻ với người khác
+    name: "A Shared Room",
     description:
-      "Khách sẽ ngủ trong một phòng hoặc khu vực chung có thể được chia sẻ với bạn hoặc những người khác",
+      "Guests sleep in a room or common area that maybe shared with you or others",
     icon: <FaPeopleRoof />,
   },
 ];
 
-// Các tiện nghi
 export const facilities = [
-  { name: "Bồn tắm", icon: <PiBathtubFill /> },
-  { name: "Sản phẩm cá nhân", icon: <FaPumpSoap /> },
-  { name: "Vòi sen ngoài trời", icon: <FaShower /> },
-  { name: "Máy giặt", icon: <BiSolidWasher /> },
-  { name: "Máy sấy", icon: <BiSolidDryer /> },
-  { name: "Móc treo quần áo", icon: <PiCoatHangerFill /> },
-  { name: "Bàn ủi", icon: <TbIroning3 /> },
-  { name: "Ti vi", icon: <PiTelevisionFill /> },
-  { name: "Không gian làm việc", icon: <BsPersonWorkspace /> },
-  { name: "Điều hòa", icon: <BsSnow /> },
-  { name: "Máy sưởi", icon: <GiHeatHaze /> },
-  { name: "Camera an ninh", icon: <GiCctvCamera /> },
-  { name: "Bình chữa cháy", icon: <FaFireExtinguisher /> },
-  { name: "Bộ sơ cứu", icon: <BiSolidFirstAid /> },
-  { name: "Wifi", icon: <BiWifi /> },
-  { name: "Dụng cụ nấu ăn", icon: <FaKitchenSet /> },
-  { name: "Tủ lạnh", icon: <BiSolidFridge /> },
-  { name: "Lò vi sóng", icon: <MdMicrowave /> },
-  { name: "Bếp nấu", icon: <GiToaster /> },
-  { name: "Lò nướng thịt", icon: <GiBarbecue /> },
-  { name: "Khu ăn uống ngoài trời", icon: <FaUmbrellaBeach /> },
-  { name: "Ban công/Sân hiên", icon: <MdBalcony /> },
-  { name: "Lửa trại", icon: <GiCampfire /> },
-  { name: "Khu vườn", icon: <MdYard /> },
-  { name: "Bãi đỗ xe miễn phí", icon: <AiFillCar /> },
-  { name: "Tự nhận phòng", icon: <FaKey /> },
-  { name: "Cho phép thú cưng", icon: <MdPets /> },
+  {
+    name: "Bath tub",
+    icon: <PiBathtubFill />,
+  },
+  {
+    name: "Personal care products",
+    icon: <FaPumpSoap />,
+  },
+  {
+    name: "Outdoor shower",
+    icon: <FaShower />,
+  },
+  {
+    name: "Washer",
+    icon: <BiSolidWasher />,
+  },
+  {
+    name: "Dryer",
+    icon: <BiSolidDryer />,
+  },
+  {
+    name: "Hangers",
+    icon: <PiCoatHangerFill />,
+  },
+  {
+    name: "Iron",
+    icon: <TbIroning3 />,
+  },
+  {
+    name: "TV",
+    icon: <PiTelevisionFill />,
+  },
+  {
+    name: "Dedicated workspace",
+    icon: <BsPersonWorkspace />
+  },
+  {
+    name: "Air Conditioning",
+    icon: <BsSnow />,
+  },
+  {
+    name: "Heating",
+    icon: <GiHeatHaze />,
+  },
+  {
+    name: "Security cameras",
+    icon: <GiCctvCamera />,
+  },
+  {
+    name: "Fire extinguisher",
+    icon: <FaFireExtinguisher />,
+  },
+  {
+    name: "First Aid",
+    icon: <BiSolidFirstAid />,
+  },
+  {
+    name: "Wifi",
+    icon: <BiWifi />,
+  },
+  {
+    name: "Cooking set",
+    icon: <FaKitchenSet />,
+  },
+  {
+    name: "Refrigerator",
+    icon: <BiSolidFridge />,
+  },
+  {
+    name: "Microwave",
+    icon: <MdMicrowave />,
+  },
+  {
+    name: "Stove",
+    icon: <GiToaster />,
+  },
+  {
+    name: "Barbecue grill",
+    icon: <GiBarbecue />,
+  },
+  {
+    name: "Outdoor dining area",
+    icon: <FaUmbrellaBeach />,
+  },
+  {
+    name: "Private patio or Balcony",
+    icon: <MdBalcony />,
+  },
+  {
+    name: "Camp fire",
+    icon: <GiCampfire />,
+  },
+  {
+    name: "Garden",
+    icon: <MdYard />,
+  },
+  {
+    name: "Free parking",
+    icon: <AiFillCar />,
+  },
+  {
+    name: "Self check-in",
+    icon: <FaKey />
+  },
+  {
+    name: " Pet allowed",
+    icon: <MdPets />
+  }
 ];

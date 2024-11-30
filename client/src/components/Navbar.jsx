@@ -11,6 +11,7 @@ const Navbar = () => {
   const [dropdownMenu, setDropdownMenu] = useState(false);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("")
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -25,9 +26,17 @@ const Navbar = () => {
       </Link>
 
       <div className="navbar_search">
-        <input type="text" placeholder="search...." />
-        <IconButton>
-          <Search sx={{ color: variables.pinkred }} />
+        <input
+          type="text"
+          placeholder="Search ..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <IconButton disabled={search === ""}>
+          <Search
+            sx={{ color: variables.pinkred }}
+            onClick={() => {navigate(`/properties/search/${search}`)}}
+          />
         </IconButton>
       </div>
 
