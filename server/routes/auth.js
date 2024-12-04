@@ -164,9 +164,10 @@ passport.use(
         if (!user) {
           // Nếu chưa, tạo tài khoản mới
           user = await User.create({
-            googleId: profile.id,
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName,
             email: profile.emails[0].value,
-            name: profile.displayName,
+            googleId: profile.id,
           });
         }
 
@@ -178,7 +179,8 @@ passport.use(
     }
   )
 );
-
+// Đăng nhập Google
+  router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get(
   "/google/callback",
   passport.authenticate("google", { session: false }),

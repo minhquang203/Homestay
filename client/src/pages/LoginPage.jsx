@@ -26,7 +26,7 @@ const LoginPage = () => {
       // Lưu token và điều hướng về trang chủ
       dispatch(
         setLogin({
-          user: {}, // Nếu server không trả user, để trống hoặc gọi API khác
+          user: {}, // Có thể thêm thông tin user từ server nếu cần
           token,
         })
       );

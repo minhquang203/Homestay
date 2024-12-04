@@ -31,7 +31,9 @@ const TripsList = () => {
 
   useEffect(() => {
     getTripList();
-  }, []);
+  }, [userId]);
+  console.log("tripList:", tripList, typeof tripList);
+
 
   return loading ? (
     <Loader />
@@ -42,6 +44,7 @@ const TripsList = () => {
       <div className="list">
         {tripList?.map(({ listingId, hostId, startDate, endDate, totalPrice, booking=true }) => (
           <ListingCard
+          key={listingId._id}
             listingId={listingId._id}
             creator={hostId._id}
             listingPhotoPaths={listingId.listingPhotoPaths}
@@ -50,7 +53,7 @@ const TripsList = () => {
             country={listingId.country}
             category={listingId.category}
             startDate={startDate}
-            endDate={endDate}
+            endDate={endDate} 
             totalPrice={totalPrice}
             booking={booking}
           />
