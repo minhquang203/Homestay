@@ -61,5 +61,27 @@ router.get("/:userId/reservations", async (req, res) => {
     res.status(404).json({ message: "Can not find reservations!", error: err.message })
   }
 })
+// Cancel Chuyến đi 
+// app.put('/users/:userId/trips/:listingId/cancel', async (req, res) => {
+//   const { userId, listingId } = req.params;
+
+//   try {
+//     // Tìm chuyến đi của người dùng
+//     const trip = await Trip.findOne({ userId, listingId });
+
+//     if (!trip) {
+//       return res.status(404).json({ message: "Trip not found" });
+//     }
+
+//     // Cập nhật trạng thái chuyến đi thành 'canceled'
+//     trip.status = 'canceled';
+//     await trip.save();
+
+//     res.status(200).json({ message: "Trip canceled successfully" });
+//   } catch (err) {
+//     res.status(500).json({ message: "Error canceling trip", error: err.message });
+//   }
+// });
+
 
 module.exports = router;

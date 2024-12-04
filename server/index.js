@@ -1,35 +1,57 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const passport = require("passport");
+
+// Khởi tạo ứng dụng Express
 const app = express();
-const dotenv = require("dotenv").config();
 
+// Load biến môi trường từ file .env
+dotenv.config();
 
-const authRouter = require("./routes/auth"); // Đường dẫn đến router của bạn
-const listingRoutes = require("./routes/listing.js")
-const BookingRoutes = require("./routes/booking.js")
-const userRoutes = require("./routes/user.js")
+// Import các router
+const authRouter = require("./routes/auth");
+const listingRoutes = require("./routes/listing");
+const bookingRoutes = require("./routes/booking");
+const userRoutes = require("./routes/user");
 
 // Cấu hình middleware
-app.use(express.json()); // Đảm bảo Express có thể hiểu dữ liệu JSON
-app.use(cors()); // Cho phép các yêu cầu từ nguồn ngoài
-app.use(express.static("public"));
+app.use(express.json()); // Cho phép xử lý dữ liệu JSON
+app.use(cors()); // Hỗ trợ CORS
+app.use(express.static("public")); // Cung cấp tài nguyên tĩnh từ thư mục public
+app.use(passport.initialize());
 
-// Kết nối MongoDB (đảm bảo bạn đã cấu hình đúng URI MongoDB của bạn)
-mongoose.connect("mongodb://localhost:27017/booktravel", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log("Kết nối MongoDB thành công!");
-}).catch(err => {
-  console.error("Lỗi kết nối MongoDB:", err);
+// Kết nối MongoDB
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Kết nối MongoDB thành công!");
+  })
+  .catch((err) => {
+    console.error("Lỗi kết nối MongoDB:", err);
+  });
+
+// Định tuyến API
+app.use("/auth", authRouter); // Đăng nhập/đăng ký
+app.use("/properties", listingRoutes); // Quản lý danh sách bất động sản
+app.use("/bookings", bookingRoutes); // Quản lý đặt chỗ
+app.use("/users", userRoutes); // Quản lý thông tin người dùng
+
+
+// Xử lý lỗi 404 cho các API không tồn tại
+app.use((req, res, next) => {
+  res.status(404).json({ error: "API không tồn tại." });
 });
 
-// Sử dụng router cho các yêu cầu liên quan đến auth
-app.use("/auth", authRouter);
-app.use("/properties",listingRoutes)
-app.use("/bookings", BookingRoutes)
-app.use("/users", userRoutes)
+// Xử lý lỗi chung
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Đã xảy ra lỗi từ server." });
+});
 
 // Khởi động server
 const PORT = process.env.PORT || 3002;

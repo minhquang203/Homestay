@@ -1,9 +1,9 @@
-// LoginPage.js
-import React, { useState } from "react";
-import "../styles/Login.scss";
-import { setLogin } from "../Redux/state"; // Import action setLogin
+import queryString from "query-string";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setLogin } from "../Redux/state";
+import "../styles/Login.scss";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -12,6 +12,27 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Xử lý đăng nhập bằng Google
+  const handleGoogleLogin = () => {
+    window.open("http://localhost:3002/auth/google", "_self");
+  };
+
+  // Kiểm tra query string khi trang được load
+  useEffect(() => {
+    const { token, message } = queryString.parse(window.location.search);
+
+    if (token && message === "success") {
+      // Lưu token và điều hướng về trang chủ
+      dispatch(
+        setLogin({
+          user: {}, // Nếu server không trả user, để trống hoặc gọi API khác
+          token,
+        })
+      );
+      navigate("/"); // Điều hướng về trang chủ
+    }
+  }, [dispatch, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,10 +48,6 @@ const LoginPage = () => {
 
       const loggedInData = await response.json();
 
-
-
-      // Kiểm tra xem phản hồi có thành công không
-      
       if (response.ok) {
         dispatch(
           setLogin({
@@ -38,9 +55,7 @@ const LoginPage = () => {
             token: loggedInData.token,
           })
         );
-
-        // Điều hướng người dùng đến trang chủ
-        navigate("/");
+        navigate("/"); // Điều hướng về trang chủ
       } else {
         setErrorMessage(loggedInData.message || "Đã xảy ra lỗi khi đăng nhập.");
       }
@@ -70,6 +85,13 @@ const LoginPage = () => {
           />
           {errorMessage && <p className="login__error">{errorMessage}</p>}
           <button type="submit">Đăng nhập</button>
+          <button
+            type="button"
+            className="login__google"
+            onClick={handleGoogleLogin}
+          >
+            Đăng nhập bằng Google
+          </button>
           <a href="/register">Không có tài khoản? Đăng ký tại đây</a>
         </form>
       </div>

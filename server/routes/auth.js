@@ -4,8 +4,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 
+
 const User = require("../models/User");
+const passport = require("passport");
 const authMiddleware = require("../middleware/auth");
+
+
+
+
 
 // Đăng ký người dùng
 router.post("/register", async (req, res) => {
@@ -80,7 +86,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Route bảo vệ thông tin người dùng (ví dụ: profile)
+// Route bảo vệ thông tin người dùng
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -139,6 +145,59 @@ const storage = multer.diskStorage({
     cb(null, file.originalname); // Use the original file name
   },
 });
+
+// Định nghĩa chiến lược Google
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID, // Lấy từ Google Cloud
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:3002/auth/google/callback", // URI chuyển hướng
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        // Kiểm tra người dùng đã tồn tại chưa
+        let user = await User.findOne({ googleId: profile.id });
+        console.log(profile);
+
+        if (!user) {
+          // Nếu chưa, tạo tài khoản mới
+          user = await User.create({
+            googleId: profile.id,
+            email: profile.emails[0].value,
+            name: profile.displayName,
+          });
+        }
+
+        // Trả về user
+        done(null, user);
+      } catch (err) {
+        done(err, null);
+      }
+    }
+  )
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
+    try {
+      // Tạo JWT cho người dùng
+      const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+      // Redirect về client với token trong query string
+      res.redirect(`http://localhost:3000/login?token=${token}&message=success`);
+    } catch (error) {
+      console.error("Error during Google callback:", error);
+      res.redirect("http://localhost:3000/login?message=error");
+    }
+  }
+);
+
+
+
 
 
 const upload = multer({ storage });
