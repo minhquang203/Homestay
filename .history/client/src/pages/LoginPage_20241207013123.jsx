@@ -18,33 +18,39 @@ const LoginPage = () => {
     window.open("http://localhost:3002/auth/google", "_self");
   };
 
-  // Kiểm tra token sau khi trang được load
+  // Kiểm tra query string khi trang được load
   useEffect(() => {
     const { token, message } = queryString.parse(window.location.search);
-
+  
     if (token && message === "success") {
-      // Gửi token đến backend để lấy thông tin người dùng
-      fetch("http://localhost:3002/auth/me", {
+      // Gọi API lấy thông tin người dùng từ token
+      fetch("http://localhost:3002/auth/google", "_self", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((response) => response.json())
+        .then((res) => res.json())
         .then((data) => {
           if (data.user) {
-            // Lưu thông tin người dùng vào Redux
-            dispatch(setLogin({ user: data.user, token }));
+            // Lưu thông tin user và token vào Redux
+            dispatch(
+              setLogin({
+                user: data.user, // Thông tin đầy đủ của user
+                token,           // Lưu token
+              })
+            );
             navigate("/"); // Điều hướng về trang chủ
           } else {
-            setErrorMessage("Không thể lấy thông tin người dùng.");
+            console.error("Không thể lấy thông tin người dùng từ backend.");
           }
         })
-        .catch(() => {
-          setErrorMessage("Lỗi khi lấy thông tin người dùng.");
+        .catch((error) => {
+          console.error("Lỗi khi gọi API lấy thông tin người dùng:", error);
         });
     }
   }, [dispatch, navigate]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,13 +64,18 @@ const LoginPage = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      const loggedInData = await response.json();
 
       if (response.ok) {
-        dispatch(setLogin({ user: data.user, token: data.token }));
+        dispatch(
+          setLogin({
+            user: loggedInData.user,
+            token: loggedInData.token,
+          })
+        );
         navigate("/"); // Điều hướng về trang chủ
       } else {
-        setErrorMessage(data.message || "Đã xảy ra lỗi khi đăng nhập.");
+        setErrorMessage(loggedInData.message || "Đã xảy ra lỗi khi đăng nhập.");
       }
     } catch (error) {
       setErrorMessage("Đã xảy ra lỗi khi đăng nhập.");

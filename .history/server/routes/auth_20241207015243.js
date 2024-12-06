@@ -176,6 +176,7 @@ passport.use(
 );
 
 // Đăng nhập bằng Google
+const router = express.Router();
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 // Callback của Google khi đăng nhập thành công

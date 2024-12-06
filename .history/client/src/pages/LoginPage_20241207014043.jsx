@@ -2,8 +2,31 @@ import queryString from "query-string";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setLogin } from "../Redux/state";
+import { setLogin } from "../Redux/state"; // Import hành động Redux
 import "../styles/Login.scss";
+
+// Function để lấy thông tin người dùng sau khi đăng nhập thành công
+const fetchUserInfo = async (token, dispatch) => {
+  try {
+    const response = await fetch("http://localhost:3002/auth/me", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`, // Gửi token trong header
+      },
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Lưu thông tin người dùng vào Redux
+      dispatch(setLogin({ user: data.user, token }));
+    } else {
+      console.error("Không thể lấy thông tin người dùng:", data.message);
+    }
+  } catch (error) {
+    console.error("Lỗi khi gọi API /auth/me:", error);
+  }
+};
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -15,37 +38,21 @@ const LoginPage = () => {
 
   // Xử lý đăng nhập bằng Google
   const handleGoogleLogin = () => {
-    window.open("http://localhost:3002/auth/google", "_self");
+    window.open("http://localhost:3002/auth/google", "_self"); // Điều hướng đến trang đăng nhập Google
   };
 
-  // Kiểm tra token sau khi trang được load
+  // Kiểm tra query string khi trang được load (chứa token và message)
   useEffect(() => {
     const { token, message } = queryString.parse(window.location.search);
 
     if (token && message === "success") {
-      // Gửi token đến backend để lấy thông tin người dùng
-      fetch("http://localhost:3002/auth/me", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.user) {
-            // Lưu thông tin người dùng vào Redux
-            dispatch(setLogin({ user: data.user, token }));
-            navigate("/"); // Điều hướng về trang chủ
-          } else {
-            setErrorMessage("Không thể lấy thông tin người dùng.");
-          }
-        })
-        .catch(() => {
-          setErrorMessage("Lỗi khi lấy thông tin người dùng.");
-        });
+      // Nếu có token, gọi API để lấy thông tin người dùng
+      fetchUserInfo(token, dispatch);
+      navigate("/"); // Điều hướng về trang chủ
     }
   }, [dispatch, navigate]);
 
+  // Xử lý khi người dùng submit form đăng nhập
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,13 +65,21 @@ const LoginPage = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      const loggedInData = await response.json();
 
       if (response.ok) {
-        dispatch(setLogin({ user: data.user, token: data.token }));
+        // Lưu thông tin người dùng và token vào Redux
+        dispatch(
+          setLogin({
+            user: loggedInData.user,
+            token: loggedInData.token,
+          })
+        );
+        // Gọi API /auth/me để lấy thông tin người dùng sau khi đăng nhập thành công
+        fetchUserInfo(loggedInData.token, dispatch);
         navigate("/"); // Điều hướng về trang chủ
       } else {
-        setErrorMessage(data.message || "Đã xảy ra lỗi khi đăng nhập.");
+        setErrorMessage(loggedInData.message || "Đã xảy ra lỗi khi đăng nhập.");
       }
     } catch (error) {
       setErrorMessage("Đã xảy ra lỗi khi đăng nhập.");
