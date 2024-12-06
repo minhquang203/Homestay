@@ -9,8 +9,8 @@ import { BiTrash } from "react-icons/bi";
 import { IoIosImages } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
 import variables from "../styles/variable.scss";
+
 const CreateListing = () => {
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
@@ -517,7 +517,6 @@ const CreateListing = () => {
           </button>
         </form>
       </div>
-      <Footer/>
     </>
   );
 };

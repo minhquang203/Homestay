@@ -1,44 +1,42 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import Footer from "../components/Footer";
+import { setPropertyList } from "../Redux/state";
 import ListingCard from "../components/ListingCard";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
-import { setListings } from "../Redux/state";
 import "../styles/List.scss";
 
-const SearchPage = () => {
+const PropertyList = () => {
   const [loading, setLoading] = useState(true)
-  const { search } = useParams()
-  const listings = useSelector((state) => state.listings)
+  const user = useSelector((state) => state.user)
+  const propertyList = user?.propertyList;
+  console.log(user)
 
   const dispatch = useDispatch()
-
-  const getSearchListings = async () => {
+  const getPropertyList = async () => {
     try {
-      const response = await fetch(`http://localhost:3002/properties/search/${search}`, {
+      const response = await fetch(`http://localhost:3002/users/${user._id}/properties`, {
         method: "GET"
       })
-
       const data = await response.json()
-      dispatch(setListings({ listings: data }))
+      console.log(data)
+      dispatch(setPropertyList(data))
       setLoading(false)
     } catch (err) {
-      console.log("Fetch Search List failed!", err.message)
+      console.log("Fetch all properties failed", err.message)
     }
   }
 
   useEffect(() => {
-    getSearchListings()
-  }, [search])
-  
+    getPropertyList()
+  }, [])
+
   return loading ? <Loader /> : (
     <>
       <Navbar />
-      <h1 className="title-list">{search}</h1>
+      <h1 className="title-list">Your Property List</h1>
       <div className="list">
-        {listings?.map(
+        {propertyList?.map(
           ({
             _id,
             creator,
@@ -66,9 +64,8 @@ const SearchPage = () => {
           )
         )}
       </div>
-      <Footer />
     </>
   );
-}
+};
 
-export default SearchPage
+export default PropertyList;

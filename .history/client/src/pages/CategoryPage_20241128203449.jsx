@@ -1,42 +1,46 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Footer from "../components/Footer";
+import { setListings } from "../Redux/state";
 import ListingCard from "../components/ListingCard";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
-import { setListings } from "../Redux/state";
 import "../styles/List.scss";
 
-const SearchPage = () => {
-  const [loading, setLoading] = useState(true)
-  const { search } = useParams()
-  const listings = useSelector((state) => state.listings)
+const CategoryPage = () => {
+  const [loading, setLoading] = useState(true);
+  const { category } = useParams()
 
   const dispatch = useDispatch()
+  const listings = useSelector((state) => state.listings);
 
-  const getSearchListings = async () => {
+  const getFeedListings = async () => {
     try {
-      const response = await fetch(`http://localhost:3002/properties/search/${search}`, {
-        method: "GET"
-      })
+      const response = await fetch(
+          `http://localhost:3002/properties?category=${category}`,
+        {
+          method: "GET",
+        }
+      );
 
-      const data = await response.json()
-      dispatch(setListings({ listings: data }))
-      setLoading(false)
+      const data = await response.json();
+      dispatch(setListings({ listings: data }));
+      setLoading(false);
     } catch (err) {
-      console.log("Fetch Search List failed!", err.message)
+      console.log("Fetch Listings Failed", err.message);
     }
-  }
+  };
 
   useEffect(() => {
-    getSearchListings()
-  }, [search])
-  
-  return loading ? <Loader /> : (
+    getFeedListings();
+  }, [category]);
+
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <Navbar />
-      <h1 className="title-list">{search}</h1>
+      <h1 className="title-list">{category} listings</h1>
       <div className="list">
         {listings?.map(
           ({
@@ -66,9 +70,8 @@ const SearchPage = () => {
           )
         )}
       </div>
-      <Footer />
     </>
   );
-}
+};
 
-export default SearchPage
+export default CategoryPage;

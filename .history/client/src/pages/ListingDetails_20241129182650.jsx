@@ -4,7 +4,6 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import { facilities } from "../data";
@@ -179,7 +178,6 @@ const ListingDetails = () => {
           </div>
         </div>
       </div>
-      <Footer/>
     </>
   );
 };

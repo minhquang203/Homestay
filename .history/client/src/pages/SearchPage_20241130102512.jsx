@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Footer from "../components/Footer";
 import ListingCard from "../components/ListingCard";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
@@ -66,7 +65,7 @@ const SearchPage = () => {
           )
         )}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

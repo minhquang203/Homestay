@@ -1,8 +1,7 @@
-import Categories from "../components/Categories";
-import Footer from "../components/Footer";
-import Listings from "../components/Listings";
 import Navbar from '../components/Navbar';
-import Slide from "../components/Slide";
+import Slide from "../components/Slide"
+import Categories from "../components/Categories"
+import Listings from "../components/Listings"
 
 
 
@@ -14,7 +13,6 @@ const HomePage = () => {
     <Slide/>
     <Categories/>
     <Listings/>
-    <Footer />
   </div>;
 };
 

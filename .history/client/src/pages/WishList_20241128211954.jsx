@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import Footer from "../components/Footer";
 import ListingCard from "../components/ListingCard";
 import Navbar from "../components/Navbar";
 import "../styles/List.scss";
@@ -43,7 +42,6 @@ const WishList = () => {
           }
         )}
       </div>
-      <Footer/>
     </>
   );
 };
