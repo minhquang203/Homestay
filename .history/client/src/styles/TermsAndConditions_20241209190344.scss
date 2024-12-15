@@ -1,0 +1,49 @@
+@import "./variable.scss";
+
+.terms-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .terms-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .terms-header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .terms-content {
+    margin-top: 20px;
+  }
+  
+  .terms-content h2 {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-top: 20px;
+  }
+  
+  .terms-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  
+  .back-to-home {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .back-to-home a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .back-to-home a:hover {
+    text-decoration: underline;
+  }
+  

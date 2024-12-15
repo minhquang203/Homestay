@@ -1,0 +1,106 @@
+@import "./variable.scss";
+
+/* TermsAndConditions.scss */
+
+/* Container chính cho trang điều khoản */
+.terms-container {
+    width: 90%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 1200px; /* Giới hạn độ rộng */
+  }
+  
+  /* Header của trang */
+  .terms-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .terms-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  
+  .terms-header p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  /* Nội dung chính của các điều khoản */
+  .terms-content {
+    margin-top: 20px;
+  }
+  
+  .terms-content h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #0056b3;
+    margin-top: 30px;
+    text-transform: capitalize;
+  }
+  
+  .terms-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    color: #555;
+  }
+  
+  /* Danh sách điều khoản */
+  .terms-content ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .terms-content ul li {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.8;
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  .terms-content ul li::before {
+    content: "•";
+    color: #007bff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.5rem;
+  }
+  
+  /* Back to home button */
+  .back-to-home {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .back-to-home a {
+    color: #fff;
+    background-color: #007bff;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .back-to-home a:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  .back-to-home a:active {
+    transform: translateY(2px);
+  }
+  

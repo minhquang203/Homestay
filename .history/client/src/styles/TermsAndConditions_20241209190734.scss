@@ -1,0 +1,119 @@
+@import "./variable.scss";
+@import "./breakpoints.scss";
+
+.terms-container {
+    width: 85%;
+    margin: 50px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #f3f4f6, #e1e8f0);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 1200px; /* Giới hạn độ rộng */
+  }
+  
+  /* Header của trang */
+  .terms-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .terms-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1e2a47;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .terms-header p {
+    font-size: 1.2rem;
+    color: #4e5d6a;
+    line-height: 1.8;
+  }
+  
+  /* Nội dung chính của các điều khoản */
+  .terms-content {
+    margin-top: 20px;
+    line-height: 1.7;
+  }
+  
+  .terms-content h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #0077b6;
+    margin-top: 30px;
+    position: relative;
+    padding-left: 30px;
+  }
+  
+  .terms-content h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #0077b6;
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .terms-content p {
+    font-size: 1.1rem;
+    color: #5a6770;
+    margin-bottom: 15px;
+  }
+  
+  /* Danh sách điều khoản */
+  .terms-content ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .terms-content ul li {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+  }
+  
+  .terms-content ul li::before {
+    content: "•";
+    color: #ff6f61; /* Màu đỏ cam cho các dấu chấm */
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.6rem;
+  }
+  
+  /* Back to home button */
+  .back-to-home {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .back-to-home a {
+    color: #fff;
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    padding: 12px 30px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 25px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .back-to-home a:hover {
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .back-to-home a:active {
+    transform: translateY(2px);
+  }
+  
