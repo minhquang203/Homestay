@@ -84,6 +84,7 @@ const ListingCard = ({
           body: JSON.stringify({
             amount: amount,
             bankCode: selectedBankCode,
+            LISTI
           }),
         });
   

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import { setReservationList } from "../Redux/state";
 import Footer from "../components/Footer";
 import ListingCard from "../components/ListingCard";
@@ -9,10 +10,12 @@ import "../styles/List.scss";
 
 const ReservationList = () => {
   const [loading, setLoading] = useState(true);
+  const [successMessage, setSuccessMessage] = useState(""); // Thêm trạng thái thông báo
   const userId = useSelector((state) => state.user._id);
   const reservationList = useSelector((state) => state.user.reservationList);
 
   const dispatch = useDispatch();
+  const location = useLocation(); // Lấy thông tin URL hiện tại
 
   // Hàm lấy danh sách đặt phòng
   const getReservationList = async () => {
@@ -37,14 +40,25 @@ const ReservationList = () => {
       getReservationList();
     }
   }, [userId]); // Thêm userId vào dependency để fetch lại khi userId thay đổi
-  
+
+  // Kiểm tra query parameter "success" để hiển thị thông báo
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.get("success") === "true") {
+      setSuccessMessage("Thanh toán thành công!");
+    }
+  }, [location]);
 
   return loading ? (
     <Loader />
   ) : (
     <>
       <Navbar />
-      <h1 className="title-list">Danh sách đặt chỗ của bạn </h1>
+      <h1 className="title-list">Danh sách đặt chỗ của bạn</h1>
+
+      {/* Hiển thị thông báo thanh toán thành công */}
+      {successMessage && <p className="success-message">{successMessage}</p>}
+
       <div className="list">
         {reservationList?.map(
           ({
@@ -72,7 +86,7 @@ const ReservationList = () => {
           )
         )}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

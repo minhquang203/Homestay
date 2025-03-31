@@ -11,10 +11,8 @@ const ReservationList = () => {
   const [loading, setLoading] = useState(true);
   const userId = useSelector((state) => state.user._id);
   const reservationList = useSelector((state) => state.user.reservationList);
-
   const dispatch = useDispatch();
 
-  // Hàm lấy danh sách đặt phòng
   const getReservationList = async () => {
     try {
       const response = await fetch(
@@ -28,23 +26,22 @@ const ReservationList = () => {
       setLoading(false);
     } catch (err) {
       console.log("Fetch Reservation List failed!", err.message);
+      setLoading(false);
     }
   };
 
-  // Sử dụng useEffect để gọi API khi component được render
   useEffect(() => {
     if (userId) {
       getReservationList();
     }
-  }, [userId]); // Thêm userId vào dependency để fetch lại khi userId thay đổi
-  
+  }, [userId]); // Gọi lại API khi userId thay đổi
 
   return loading ? (
     <Loader />
   ) : (
     <>
       <Navbar />
-      <h1 className="title-list">Danh sách đặt chỗ của bạn </h1>
+      <h1 className="title-list">Danh sách đặt chỗ của bạn</h1>
       <div className="list">
         {reservationList?.map(
           ({
@@ -56,7 +53,7 @@ const ReservationList = () => {
             booking = true,
           }) => (
             <ListingCard
-              key={listingId._id} // Thêm key duy nhất cho mỗi ListingCard
+              key={listingId._id}
               listingId={listingId._id}
               creator={hostId._id}
               listingPhotoPaths={listingId.listingPhotoPaths}
@@ -72,7 +69,7 @@ const ReservationList = () => {
           )
         )}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

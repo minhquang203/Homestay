@@ -80,7 +80,7 @@ function sortObject(obj) {
   }
   return sorted;
 };
- router.get('/vnpay_return', function (req, res, next) {
+  router.get('/vnpay_return', function (req, res, next) {
     let vnp_Params = req.query;
     let secureHash = vnp_Params['vnp_SecureHash'];
 
@@ -98,16 +98,16 @@ function sortObject(obj) {
         let transactionStatus = vnp_Params['vnp_TransactionStatus'];
         if (transactionStatus === '00') {
             // ✅ Thanh toán thành công → Redirect về trang `reservations`
-            return res.redirect("http://localhost:3000/reservations");
-        } else {
+            return res.redirect(`return res.redirect("http://localhost:3000/reservations");
+`);
+          } else {
             // ❌ Thanh toán thất bại → Redirect về `trips` kèm thông báo lỗi
             return res.redirect("http://localhost:3000/trips?error=Thanh toán thất bại");
         }
     } else {
         return res.redirect("http://localhost:3000/trips?error=Chữ ký không hợp lệ");
     }
-});
-
+  });
 
 
 

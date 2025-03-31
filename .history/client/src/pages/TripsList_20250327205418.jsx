@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import ListingCard from "../components/ListingCard";
 import Loader from "../components/Loader";
@@ -13,6 +14,7 @@ const TripsList = () => {
   const userId = useSelector((state) => state.user._id);
   const tripList = useSelector((state) => state.user.tripList);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getTripList = async () => {
     try {
@@ -46,27 +48,34 @@ const TripsList = () => {
     }
   };
 
-  useEffect(() => {
-    getTripList();
-  }, [userId]);
-
+  // Define handleBooking function
   const handleBooking = async (trip) => {
     try {
-      const response = await fetch("http://localhost:3002/create_payment_url", {
+      const response = await fetch("http://localhost:3002/payment/create_payment_url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          amount: trip.totalPrice,  // Sử dụng giá trị totalPrice của chuyến đi
-          orderInfo: `Đặt phòng cho chuyến đi ${trip.listingId.city}`, // Thông tin đơn hàng
+          amount: trip.totalPrice,
+          bankCode: "NCB",
+          listingId: trip.listingId._id,
+          userId: userId,
+          startDate: trip.startDate,
+          endDate: trip.endDate,
+          hostId: trip.hostId._id,
         }),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Có lỗi xảy ra từ server");
+      }
 
       const data = await response.json();
 
       if (data.paymentUrl) {
-        window.location.href = data.paymentUrl; // Điều hướng đến cổng thanh toán VNPay
+        window.location.href = data.paymentUrl; // Redirect to VNPay payment URL
       } else {
         setError("Không thể tạo URL thanh toán. Vui lòng thử lại.");
       }
@@ -75,6 +84,18 @@ const TripsList = () => {
       setError("Có lỗi xảy ra khi tạo đơn thanh toán. Vui lòng thử lại.");
     }
   };
+
+  useEffect(() => {
+    getTripList();
+  }, [userId]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    if (error) {
+      setError(error);
+    }
+  }, []);
 
   return loading ? (
     <Loader />
@@ -107,7 +128,7 @@ const TripsList = () => {
                 endDate={endDate}
                 totalPrice={totalPrice}
                 booking={true}
-                onBook={() => handleBooking(trip)}  // Gọi handleBooking khi bấm Đặt phòng
+                onBook={() => handleBooking(trip)} // Now handleBooking is defined
               />
             );
           })

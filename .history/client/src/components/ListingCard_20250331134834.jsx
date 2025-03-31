@@ -68,11 +68,17 @@ const ListingCard = ({
   const handleCardClick = async () => {
     if (booking) {
       try {
-        const amount = totalPrice; // Giả sử totalPrice được truyền từ props
-        const selectedBankCode = "NCB"; // Có thể để người dùng chọn ngân hàng
+        const amount = totalPrice;
+        const selectedBankCode = "NCB";
+        const userId = user?._id; // Lấy userId từ Redux state
   
         if (!amount || isNaN(amount) || amount <= 0) {
           setError("Số tiền không hợp lệ. Vui lòng kiểm tra lại.");
+          return;
+        }
+  
+        if (!userId) {
+          setError("Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.");
           return;
         }
   
@@ -84,6 +90,7 @@ const ListingCard = ({
           body: JSON.stringify({
             amount: amount,
             bankCode: selectedBankCode,
+            userId: userId, // Thêm userId vào body
           }),
         });
   
@@ -94,7 +101,7 @@ const ListingCard = ({
   
         const data = await response.json();
         if (data.paymentUrl) {
-          window.location.href = data.paymentUrl; // Chuyển hướng đến URL thanh toán
+          window.location.href = data.paymentUrl;
         } else {
           throw new Error('Không nhận được URL thanh toán từ server');
         }

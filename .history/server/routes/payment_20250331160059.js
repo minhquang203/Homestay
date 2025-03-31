@@ -27,9 +27,14 @@ router.post('/create_payment_url', function (req, res, next) {
 
   let amount = req.body.amount;
   let bankCode = req.body.bankCode;
+  let userId = req.body.userId; // Lấy userId từ client
 
   if (!amount || isNaN(amount) || amount <= 0) {
     return res.status(400).json({ message: "Số tiền không hợp lệ" });
+  }
+
+  if (!userId) {
+    return res.status(400).json({ message: "Thiếu thông tin người dùng (userId)" });
   }
 
   let orderId = moment(date).format('DDHHmmss');
@@ -48,12 +53,15 @@ router.post('/create_payment_url', function (req, res, next) {
   vnp_Params['vnp_ReturnUrl'] = returnUrl;
   vnp_Params['vnp_IpAddr'] = ipAddr;
   vnp_Params['vnp_CreateDate'] = createDate;
+  vnp_Params['vnp_UserId'] = userId; // Thêm userId vào params
 
   if (bankCode && bankCode !== '') {
     vnp_Params['vnp_BankCode'] = bankCode;
   }
 
   vnp_Params = sortObject(vnp_Params);
+  console.log("VNPay Params:", vnp_Params);
+  console.log("VNPay URL:", vnpUrl);
 
   let signData = querystring.stringify(vnp_Params, { encode: false });
   let hmac = crypto.createHmac('sha512', secretKey);
@@ -61,10 +69,9 @@ router.post('/create_payment_url', function (req, res, next) {
   vnp_Params['vnp_SecureHash'] = signed;
   vnpUrl += '?' + querystring.stringify(vnp_Params, { encode: false });
 
-  // Trả về URL thanh toán dưới dạng JSON thay vì redirect
+  // Trả về URL thanh toán dưới dạng JSON
   res.json({ paymentUrl: vnpUrl });
 });
-
 function sortObject(obj) {
   let sorted = {};
   let str = [];
@@ -80,32 +87,42 @@ function sortObject(obj) {
   }
   return sorted;
 };
- router.get('/vnpay_return', function (req, res, next) {
-    let vnp_Params = req.query;
-    let secureHash = vnp_Params['vnp_SecureHash'];
+router.get('/vnpay_return', function (req, res, next) {
+  let vnp_Params = req.query;
+  let secureHash = vnp_Params['vnp_SecureHash'];
 
-    delete vnp_Params['vnp_SecureHash'];
-    delete vnp_Params['vnp_SecureHashType'];
+  delete vnp_Params['vnp_SecureHash'];
+  delete vnp_Params['vnp_SecureHashType'];
 
-    vnp_Params = sortObject(vnp_Params);
+  vnp_Params = sortObject(vnp_Params);
 
-    let secretKey = process.env.VNP_HASH_SECRET;
-    let signData = querystring.stringify(vnp_Params, { encode: false });
-    let hmac = crypto.createHmac('sha512', secretKey);
-    let signed = hmac.update(Buffer.from(signData, 'utf-8')).digest('hex');
+  let secretKey = process.env.VNP_HASH_SECRET;
+  let signData = querystring.stringify(vnp_Params, { encode: false });
+  let hmac = crypto.createHmac('sha512', secretKey);
+  let signed = hmac.update(Buffer.from(signData, 'utf-8')).digest('hex');
 
-    if (secureHash === signed) {
-        let transactionStatus = vnp_Params['vnp_TransactionStatus'];
-        if (transactionStatus === '00') {
-            // ✅ Thanh toán thành công → Redirect về trang `reservations`
-            return res.redirect("http://localhost:3000/reservations");
-        } else {
-            // ❌ Thanh toán thất bại → Redirect về `trips` kèm thông báo lỗi
-            return res.redirect("http://localhost:3000/trips?error=Thanh toán thất bại");
-        }
-    } else {
-        return res.redirect("http://localhost:3000/trips?error=Chữ ký không hợp lệ");
+  if (secureHash === signed) {
+    let transactionStatus = vnp_Params['vnp_TransactionStatus'];
+    let userId = vnp_Params['vnp_UserId']; // Lấy userId từ params
+
+    if (!userId) {
+      console.error("Thiếu thông tin userId trong callback");
+      return res.redirect("http://localhost:3000/trips?error=Thiếu thông tin người dùng");
     }
+
+    if (transactionStatus === '00') {
+      // ✅ Thanh toán thành công
+      console.log(`Thanh toán thành công cho userId: ${userId}`);
+      return res.redirect(`http://localhost:3000/${userId}/reservations`);
+    } else {
+      // ❌ Thanh toán thất bại
+      console.error(`Thanh toán thất bại cho userId: ${userId}`);
+      return res.redirect(`http://localhost:3000/${userId}/trips?error=Thanh toán thất bại`);
+    }
+  } else {
+    console.error("Chữ ký không hợp lệ");
+    return res.redirect("http://localhost:3000/trips?error=Chữ ký không hợp lệ");
+  }
 });
 
 

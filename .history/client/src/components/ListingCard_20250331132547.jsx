@@ -20,7 +20,6 @@ const ListingCard = ({
   totalPrice,
   booking,
 }) => {
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -28,7 +27,6 @@ const ListingCard = ({
 
   const user = useSelector((state) => state.user);
   const wishList = user?.wishList || [];
-
   const isLiked = wishList?.find((item) => item?._id === listingId);
 
   const goToPrevSlide = (e) => {
@@ -46,7 +44,7 @@ const ListingCard = ({
   const patchWishList = async (e) => {
     e.stopPropagation();
     if (!user) return;
-    
+
     if (user._id !== creator._id) {
       try {
         const response = await fetch(
@@ -65,38 +63,45 @@ const ListingCard = ({
       }
     }
   };
+
   const handleCardClick = async () => {
     if (booking) {
       try {
-        const amount = totalPrice; // Giả sử totalPrice được truyền từ props
-        const selectedBankCode = "NCB"; // Có thể để người dùng chọn ngân hàng
-  
+        if (!user || !user._id) {
+          setError("Bạn cần đăng nhập để thanh toán.");
+          return;
+        }
+
+        const amount = totalPrice; 
+        const selectedBankCode = "NCB"; 
+
         if (!amount || isNaN(amount) || amount <= 0) {
           setError("Số tiền không hợp lệ. Vui lòng kiểm tra lại.");
           return;
         }
-  
-        const response = await fetch('http://localhost:3002/payment/create_payment_url', {
-          method: 'POST',
+
+        const response = await fetch("http://localhost:3002/payment/create_payment_url", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             amount: amount,
             bankCode: selectedBankCode,
+            userId: user._id, // 🛠 Gửi userId để tránh lỗi thiếu thông tin người dùng
           }),
         });
-  
+
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || 'Có lỗi xảy ra từ server');
+          throw new Error(errorData.message || "Có lỗi xảy ra từ server");
         }
-  
+
         const data = await response.json();
         if (data.paymentUrl) {
-          window.location.href = data.paymentUrl; // Chuyển hướng đến URL thanh toán
+          window.location.href = data.paymentUrl;
         } else {
-          throw new Error('Không nhận được URL thanh toán từ server');
+          throw new Error("Không nhận được URL thanh toán từ server");
         }
       } catch (err) {
         console.error("Lỗi khi tạo URL thanh toán:", err);
@@ -106,32 +111,21 @@ const ListingCard = ({
       navigate(`/properties/${listingId}`);
     }
   };
-  
-  
 
   return (
     <div className="listing-card" onClick={handleCardClick}>
       <div className="slider-container">
-        <div
-          className="slider"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
+        <div className="slider" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           {listingPhotoPaths?.map((photo, index) => (
             <div key={index} className="slide">
               <img
                 src={`http://localhost:3002/${photo?.replace("public", "")}`}
                 alt={`photo ${index + 1}`}
               />
-              <div
-                className="prev-button"
-                onClick={goToPrevSlide}
-              >
+              <div className="prev-button" onClick={goToPrevSlide}>
                 <ArrowBackIosNew sx={{ fontSize: "15px" }} />
               </div>
-              <div
-                className="next-button"
-                onClick={goToNextSlide}
-              >
+              <div className="next-button" onClick={goToNextSlide}>
                 <ArrowForwardIos sx={{ fontSize: "15px" }} />
               </div>
             </div>
@@ -162,23 +156,13 @@ const ListingCard = ({
         </>
       )}
 
-      <button
-        className="favorite"
-        onClick={patchWishList}
-        disabled={!user}
-      >
-        {isLiked ? (
-          <Favorite sx={{ color: "red" }} />
-        ) : (
-          <Favorite sx={{ color: "white" }} />
-        )}
+      <button className="favorite" onClick={patchWishList} disabled={!user}>
+        {isLiked ? <Favorite sx={{ color: "red" }} /> : <Favorite sx={{ color: "white" }} />}
       </button>
 
       {error && <p className="error-message">{error}</p>}
     </div>
   );
-}
+};
 
 export default ListingCard;
-
- 

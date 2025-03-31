@@ -3,6 +3,7 @@ const router = require('express').Router();
 const moment = require('moment');
 const querystring = require('qs');
 const crypto = require('crypto');
+const Reservation = require('../models/Reservation'); // Import model Reservation
 
 router.post('/create_payment_url', function (req, res, next) {
   process.env.TZ = 'Asia/Ho_Chi_Minh';
@@ -42,7 +43,7 @@ router.post('/create_payment_url', function (req, res, next) {
   vnp_Params['vnp_Locale'] = locale;
   vnp_Params['vnp_CurrCode'] = currCode;
   vnp_Params['vnp_TxnRef'] = orderId;
-  vnp_Params['vnp_OrderInfo'] = 'Thanh toan cho ma GD:' + orderId;
+  vnp_Params['vnp_OrderInfo'] = `Thanh toan cho ma GD:${orderId}|${req.body.listingId}|${req.body.userId}|${req.body.startDate}|${req.body.endDate}|${req.body.hostId}`; // Lưu thêm thông tin
   vnp_Params['vnp_OrderType'] = 'other';
   vnp_Params['vnp_Amount'] = amount * 100;
   vnp_Params['vnp_ReturnUrl'] = returnUrl;
@@ -61,8 +62,61 @@ router.post('/create_payment_url', function (req, res, next) {
   vnp_Params['vnp_SecureHash'] = signed;
   vnpUrl += '?' + querystring.stringify(vnp_Params, { encode: false });
 
-  // Trả về URL thanh toán dưới dạng JSON thay vì redirect
   res.json({ paymentUrl: vnpUrl });
+});
+
+router.get('/vnpay_return', async function (req, res, next) {
+  let vnp_Params = req.query;
+  let secureHash = vnp_Params['vnp_SecureHash'];
+
+  delete vnp_Params['vnp_SecureHash'];
+  delete vnp_Params['vnp_SecureHashType'];
+
+  vnp_Params = sortObject(vnp_Params);
+
+  let secretKey = process.env.VNP_HASH_SECRET;
+  let signData = querystring.stringify(vnp_Params, { encode: false });
+  let hmac = crypto.createHmac('sha512', secretKey);
+  let signed = hmac.update(Buffer.from(signData, 'utf-8')).digest('hex');
+
+  if (secureHash === signed) {
+    let transactionStatus = vnp_Params['vnp_TransactionStatus'];
+    let orderInfo = vnp_Params['vnp_OrderInfo'];
+    let amount = vnp_Params['vnp_Amount'] / 100; // Chuyển về đơn vị VND
+    let orderId = vnp_Params['vnp_TxnRef'];
+
+    // Parse thông tin từ vnp_OrderInfo
+    const [_, listingId, userId, startDate, endDate, hostId] = orderInfo.split('|');
+
+    if (transactionStatus === '00') {
+      try {
+        // Lưu thông tin đặt chỗ vào database
+        const reservation = await Reservation.create({
+          userId: userId,
+          listingId: listingId,
+          hostId: hostId,
+          startDate: new Date(startDate),
+          endDate: new Date(endDate),
+          totalPrice: amount,
+          orderId: orderId,
+          status: 'confirmed',
+        });
+
+        // Xóa chuyến đi khỏi danh sách trips (nếu cần)
+        // Giả sử bạn có một model Trip
+        // await Trip.deleteOne({ userId: userId, listingId: listingId });
+
+        res.redirect('http://localhost:3000/reservations');
+      } catch (err) {
+        console.error('Lỗi khi lưu đặt chỗ:', err);
+        res.redirect('http://localhost:3000/trips?error=Lỗi khi lưu đặt chỗ');
+      }
+    } else {
+      res.redirect('http://localhost:3000/trips?error=Thanh toán thất bại');
+    }
+  } else {
+    res.redirect('http://localhost:3000/trips?error=Chữ ký không hợp lệ');
+  }
 });
 
 function sortObject(obj) {
@@ -79,36 +133,6 @@ function sortObject(obj) {
     sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, '+');
   }
   return sorted;
-};
- router.get('/vnpay_return', function (req, res, next) {
-    let vnp_Params = req.query;
-    let secureHash = vnp_Params['vnp_SecureHash'];
-
-    delete vnp_Params['vnp_SecureHash'];
-    delete vnp_Params['vnp_SecureHashType'];
-
-    vnp_Params = sortObject(vnp_Params);
-
-    let secretKey = process.env.VNP_HASH_SECRET;
-    let signData = querystring.stringify(vnp_Params, { encode: false });
-    let hmac = crypto.createHmac('sha512', secretKey);
-    let signed = hmac.update(Buffer.from(signData, 'utf-8')).digest('hex');
-
-    if (secureHash === signed) {
-        let transactionStatus = vnp_Params['vnp_TransactionStatus'];
-        if (transactionStatus === '00') {
-            // ✅ Thanh toán thành công → Redirect về trang `reservations`
-            return res.redirect("http://localhost:3000/reservations");
-        } else {
-            // ❌ Thanh toán thất bại → Redirect về `trips` kèm thông báo lỗi
-            return res.redirect("http://localhost:3000/trips?error=Thanh toán thất bại");
-        }
-    } else {
-        return res.redirect("http://localhost:3000/trips?error=Chữ ký không hợp lệ");
-    }
-});
-
-
-
+}
 
 module.exports = router;

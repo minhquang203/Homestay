@@ -37,7 +37,6 @@ const ReservationList = () => {
       getReservationList();
     }
   }, [userId]); // Thêm userId vào dependency để fetch lại khi userId thay đổi
-  
 
   return loading ? (
     <Loader />

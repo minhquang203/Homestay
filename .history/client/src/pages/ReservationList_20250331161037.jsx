@@ -10,6 +10,7 @@ import "../styles/List.scss";
 const ReservationList = () => {
   const [loading, setLoading] = useState(true);
   const userId = useSelector((state) => state.user._id);
+  const [successMessage, setSuccessMessage] = useState("");
   const reservationList = useSelector((state) => state.user.reservationList);
 
   const dispatch = useDispatch();
@@ -37,7 +38,12 @@ const ReservationList = () => {
       getReservationList();
     }
   }, [userId]); // Thêm userId vào dependency để fetch lại khi userId thay đổi
-  
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.get("success") === "true") {
+      setSuccessMessage("Thanh toán thành công!");
+    }
+  }, [location]);
 
   return loading ? (
     <Loader />
@@ -45,6 +51,7 @@ const ReservationList = () => {
     <>
       <Navbar />
       <h1 className="title-list">Danh sách đặt chỗ của bạn </h1>
+      {successMessage && <p className="success-message">{successMessage}</p>}
       <div className="list">
         {reservationList?.map(
           ({
