@@ -49,3 +49,11 @@ Dự án **Homestay** là một nền tảng quản lý cho thuê homestay, nơi
    ```bash
    git clone https://github.com/minhquang203/Homestay.git
    cd Homestay
+2.Cài đặt các phụ thuộc cho server:
+
+```bash 
+cd server
+npm install
+```
+3 Cài đặt các phụ thuộc cho client:
+
