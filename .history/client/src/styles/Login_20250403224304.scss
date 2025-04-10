@@ -1,0 +1,166 @@
+@import "./variable.scss";
+
+.login-container {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+  padding: 1rem;
+  overflow: hidden;
+
+  &__card {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); /* Hiệu ứng kính mờ */
+    border-radius: 1rem;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: floatIn 1s ease-out forwards;
+
+    /* Hiệu ứng bóng nhỏ bên trong */
+    &::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+      animation: rotateGlow 8s linear infinite;
+      pointer-events: none;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      letter-spacing: 1px;
+      animation: textGlow 1.5s ease-in-out infinite alternate;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    input {
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 2rem; /* Bo tròn mạnh */
+      background: rgba(240, 240, 240, 0.8);
+      font-size: 1rem;
+      color: var(--text-dark);
+      transition: all 0.4s ease;
+
+      &::placeholder {
+        color: var(--text-muted);
+        opacity: 0.7;
+      }
+
+      &:focus {
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 0 15px rgba(var(--primary-dark), 0.3);
+        transform: translateX(5px); /* Dịch nhẹ sang phải */
+        outline: none;
+      }
+    }
+
+    button {
+      padding: 1rem;
+      border: none;
+      border-radius: 2rem;
+      background: var(--primary-dark);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: var(--primary-hover);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transform: scale(1.05); /* Phóng to nhẹ */
+      }
+
+      &:active {
+        transform: scale(0.98); /* Thu nhỏ khi nhấn */
+      }
+    }
+  }
+
+  &__social {
+    margin-top: 1.5rem;
+    text-align: center;
+
+    button {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 50%; /* Nút tròn */
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: var(--primary-dark);
+        transform: rotate(10deg); /* Xoay nhẹ */
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: 1.5rem;
+    text-align: center;
+
+    a {
+      color: var(--primary-dark);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* Animations */
+  @keyframes floatIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.9) translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes rotateGlow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes textGlow {
+    0% {
+      text-shadow: 0 0 5px rgba(var(--primary-dark), 0.2);
+    }
+    100% {
+      text-shadow: 0 0 15px rgba(var(--primary-dark), 0.5);
+    }
+  }
+}

@@ -1,0 +1,167 @@
+@import "./variable.scss";
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient nền */
+  font-family: $font-primary;
+  padding: 1rem;
+
+  &__content {
+    background: $form-background;
+    padding: 3rem 2.5rem;
+    border-radius: $border-radius-large;
+    box-shadow: $box-shadow-large;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn $transition-slow;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: $text-color;
+      font-weight: bold;
+    }
+
+    .login__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      input {
+        padding: 0.9rem;
+        border: none;
+        border-bottom: 2px solid $input-border-color;
+        font-size: 1rem;
+        color: $text-color;
+        background-color: transparent;
+        transition: all $transition-fast;
+
+        &:focus {
+          border-bottom-color: $input-focus-border;
+          outline: none;
+        }
+
+        &::placeholder {
+          color: $grey;
+        }
+      }
+
+      .login__forgot {
+        text-align: right;
+        font-size: 0.9rem;
+        color: $link-color;
+        text-decoration: none;
+        transition: color $transition-fast;
+
+        &:hover {
+          color: $link-hover;
+        }
+      }
+
+      button {
+        padding: 1rem;
+        background: linear-gradient(90deg, #6a11cb, #2575fc); /* Gradient nút */
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        transition: all $transition-fast;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        &:active {
+          transform: translateY(1px);
+          box-shadow: none;
+        }
+      }
+    }
+
+    .login__divider {
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: $grey;
+      position: relative;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: $grey;
+      }
+
+      &::before {
+        left: 0;
+      }
+
+      &::after {
+        right: 0;
+      }
+    }
+
+    .login__socials {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: $lightgrey;
+        color: $darkgrey;
+        font-size: 1.2rem;
+        transition: all $transition-fast;
+
+        &:hover {
+          background: $button-hover;
+          color: #fff;
+        }
+      }
+    }
+
+    .login__signup {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: $grey;
+
+      a {
+        color: $link-color;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color $transition-fast;
+
+        &:hover {
+          color: $link-hover;
+        }
+      }
+    }
+  }
+
+  /* Hiệu ứng */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

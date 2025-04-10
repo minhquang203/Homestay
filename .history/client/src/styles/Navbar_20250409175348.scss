@@ -1,0 +1,58 @@
+.navbar_dropdown {
+  position: absolute;
+  top: 75px;
+  right: 60px;
+  background-color: #ffffff;
+  width: 180px; // Giảm độ rộng
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.25s ease-in-out;
+  z-index: 100;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  a, span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px; // Gọn hơn
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+
+    svg {
+      font-size: 18px; // Tăng độ rõ icon
+      color: #555;
+    }
+
+    &:hover {
+      background-color: #f7f7f7;
+    }
+  }
+}
+
+.navbar_right {
+  .navbar_account_btn {
+    padding: 6px 12px;
+    gap: 6px;
+    svg {
+      font-size: 22px;
+    }
+  }
+
+  .navbar_host {
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 18px;
+  }
+}

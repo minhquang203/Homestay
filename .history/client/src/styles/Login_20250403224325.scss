@@ -1,0 +1,166 @@
+@import "./variable.scss";
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--background-gradient);
+  font-family: var(--font-primary);
+  padding: 1rem;
+  animation: fadeIn 1s ease-out;
+
+  &__content {
+    background: var(--form-background);
+    padding: 3rem 2.5rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow-large);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 1s ease-out forwards;
+  
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  .login__google {
+    background-color: #4285f4;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #357ae8;
+    }
+  }
+  
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      animation: slideIn 0.6s ease-out forwards;
+    }
+
+    input {
+      padding: 1rem;
+      border: 1px solid var(--input-border-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      color: var(--text-color);
+      background-color: var(--input-background);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      animation: slideUp 0.6s ease-out forwards;
+  
+      &:focus {
+        border-color: var(--input-focus-border);
+        box-shadow: 0 0 8px rgba(var(--input-focus-border), 0.3);
+        outline: none;
+        transform: scale(1.02); /* Mượt mà hơn khi focus */
+      }
+
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+
+    button {
+      padding: 1rem;
+      background: var(--button-color);
+      color: #222;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      animation: buttonFadeIn 0.8s ease-out forwards;
+  
+      &:hover {
+        background-color: var(--button-hover);
+        transform: translateY(-3px); /* Nâng cao nhẹ */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+  
+      &:active {
+        transform: translateY(1px);
+        box-shadow: none;
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      color: var(--link-hover);
+      transform: scale(1.05);
+    }
+  }
+
+  &__error {
+    color: var(--error-color);
+    font-size: 0.9rem;
+    margin-top: -1rem;
+  }
+
+  /* Hiệu ứng cho từng phần tử trong form */
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes buttonFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,135 @@
+@import "./breakpoints.scss";
+@import "./variable.scss";
+
+.navbar {
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  position: relative;
+  box-shadow: $box-shadow-small;
+
+  &__logo img {
+    width: 90px;
+    cursor: pointer;
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    border: 1px solid $grey;
+    border-radius: 30px;
+    padding: 5px 15px;
+    background-color: #f9f9f9;
+    width: 300px;
+    transition: box-shadow 0.3s;
+
+    input {
+      border: none;
+      outline: none;
+      flex: 1;
+      padding: 5px;
+      background: transparent;
+    }
+
+    .navbar__icon {
+      color: $pinkred;
+    }
+
+    &:hover {
+      box-shadow: $box-shadow-small;
+    }
+
+    @include media-query(md) {
+      width: 250px;
+    }
+
+    @include media-query(sm) {
+      display: none;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+
+    .navbar__host {
+      font-weight: 600;
+      color: $darkgrey;
+      padding: 8px 15px;
+      border: 1px solid $grey;
+      border-radius: 20px;
+      background-color: #fff;
+      transition: all 0.3s;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: $lightgrey;
+        color: $pinkred;
+      }
+
+      @include media-query(sm) {
+        display: none;
+      }
+    }
+
+    .navbar__account {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid $grey;
+      border-radius: 25px;
+      background-color: #fff;
+      cursor: pointer;
+
+      svg {
+        color: $darkgrey;
+      }
+
+      &:hover {
+        box-shadow: $box-shadow-large;
+      }
+    }
+
+    .navbar__dropdown {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 220px;
+      background-color: #fff;
+      border: 1px solid $lightgrey;
+      border-radius: 15px;
+      box-shadow: $box-shadow-large;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+
+      a {
+        padding: 12px 15px;
+        text-decoration: none;
+        color: $grey;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.04);
+          color: $pinkred;
+        }
+      }
+    }
+  }
+
+  @include media-query(sm) {
+    padding: 10px 15px;
+
+    &__logo img {
+      width: 75px;
+    }
+  }
+}

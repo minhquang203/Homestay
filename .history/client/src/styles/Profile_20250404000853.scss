@@ -1,0 +1,133 @@
+@import "./variable.scss";
+@import "./breakpoints.scss";
+
+.profile {
+  padding: 50px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: $lightgrey;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: $blue;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .update-message {
+    text-align: center;
+    color: $green;
+    font-size: 16px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: $darkgrey;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid $grey;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:focus {
+      border-color: $blue;
+      box-shadow: 0 0 5px rgba($blue, 0.5);
+      outline: none;
+    }
+  }
+
+  button {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: $blue;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-right: 10px;
+
+    &:hover {
+      background-color: darken($blue, 10%);
+      transform: translateY(-@import "./variable.scss";
+@import "./breakpoints.scss";
+
+.profile {
+  padding: 50px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: $lightgrey;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: $blue;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .update-message {
+    text-align: center;
+    color: $green;
+    font-size: 16px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: $darkgrey;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid $grey;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:focus {
+      border-color: $blue;
+      box-shadow: 0 0 5px rgba($blue, 0.5);
+      outline: none;
+    }
+  }
+
+  button {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: $blue;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-right: 10px;
+
+    &:hover {
+      background-color: darken($blue, 10%);
+      transform: translateY(-

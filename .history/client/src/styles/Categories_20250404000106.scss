@@ -1,0 +1,108 @@
+@import "./variable.scss";
+@import "./breakpoints.scss";
+
+.categories {
+  padding: 50px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: $lightgrey;
+
+  h1 {
+    color: $blue;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  p {
+    max-width: 700px;
+    font-size: 18px;
+    color: lightgrey;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .categories_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+
+    a {
+      text-decoration: none;
+    }
+
+    .category {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease, filter 0.4s ease;
+        filter: brightness(0.8);
+      }
+
+      .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+        transition: background-color 0.4s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &_text {
+        position: relative;
+        color: white;
+        text-align: center;
+        z-index: 2;
+
+        &_icon {
+          font-size: 45px;
+          margin-bottom: 10px;
+          transition: transform 0.4s ease;
+        }
+
+        p {
+          font-size: 18px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+
+        img {
+          transform: scale(1.1);
+          filter: brightness(1);
+        }
+
+        .overlay {
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9));
+        }
+
+        &_text_icon {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}

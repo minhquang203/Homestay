@@ -1,0 +1,111 @@
+@import "../variable.scss";
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: $background-gradient;
+  font-family: $font-primary;
+  padding: 1rem;
+
+  &__content {
+    background: $form-background;
+    padding: 2.5rem 2rem;
+    border-radius: $border-radius-large;
+    box-shadow: $box-shadow-large;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn $transition-slow;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: $text-color;
+      font-weight: bold;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    input {
+      padding: 0.9rem;
+      border: 1px solid $input-border-color;
+      border-radius: $border-radius;
+      font-size: 1rem;
+      color: $text-color;
+      background-color: $form-background;
+      transition: all $transition-fast;
+      box-shadow: $box-shadow-small;
+
+      &:focus {
+        border-color: $input-focus-border;
+        box-shadow: 0 0 10px rgba($input-focus-border, 0.4);
+        outline: none;
+      }
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+
+    button {
+      padding: 1rem;
+      background: $button-color;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: all $transition-fast;
+      box-shadow: $box-shadow-large;
+
+      &:hover {
+        background-color: $button-hover;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: translateY(1px);
+        box-shadow: none;
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: $link-color;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $link-hover;
+    }
+  }
+
+  &__error {
+    color: $error-color;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+  }
+
+  /* Hiệu ứng */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

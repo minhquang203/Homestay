@@ -1,0 +1,124 @@
+@import "./variable.scss";
+
+.profile {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  font-family: $font-primary;
+
+  h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: $darkgrey;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .update-message {
+    font-size: 16px;
+    color: $success-color;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    color: $darkgrey;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  input[type="text"],
+  input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid $lightgrey;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 5px rgba($primary-color, 0.5);
+      outline: none;
+    }
+  }
+
+  button {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: $primary-color;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+
+  .logout-button {
+    background-color: $danger-color;
+
+    &:hover {
+      background-color: darken($danger-color, 10%);
+    }
+  }
+
+  p {
+    font-size: 16px;
+    color: $grey;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* Responsive */
+  @include media-query(sm) {
+    padding: 20px;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    button {
+      width: 100%;
+      margin-bottom: 10px;
+
+      &:not(:last-child) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  /* Animation */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

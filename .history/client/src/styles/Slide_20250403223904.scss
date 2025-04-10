@@ -1,0 +1,44 @@
+.slidePage {
+  width: 100vw;
+  height: 80vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../../public/assets/slide.jpg");
+  background-position: center;
+  background-size: cover; /* Đảm bảo ảnh nền phủ đầy màn hình */
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+
+  animation: fadeInUp 1.5s ease-out forwards;
+}
+
+/* Hiệu ứng fade-in kết hợp slide-in từ dưới lên */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  padding: 20px;
+  font-size: 42px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: white;
+  z-index: 1;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1); /* Tạo hiệu ứng nền mờ cho tiêu đề */
+  padding: 15px 30px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}

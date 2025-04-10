@@ -1,0 +1,108 @@
+[33mcommit 8157597bc64cec93e857a59e23f179163af2c5cc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Thu Apr 3 13:09:05 2025 +0700
+
+    add README len
+
+[33mcommit 378239784e3d11ef27bd4fe2f20f7a6ac90c3432[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Mon Mar 31 20:33:51 2025 +0700
+
+     cập nhật thanh toán v3
+
+[33mcommit f3f071d33205ad73e06862bd259c05fa7a198a18[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Thu Mar 27 18:05:13 2025 +0700
+
+     chinh sua thanh toan v2
+
+[33mcommit 8aa73af47c54e78bee48dedc8b4e0343ca089503[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Thu Mar 27 17:44:26 2025 +0700
+
+     chinh sua thanh toan v1
+
+[33mcommit 384c8b97af11249d125f310487bacbb420534a57[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Sun Dec 15 23:40:41 2024 +0700
+
+     thanh toan dang sua lai
+
+[33mcommit 95fe1f10f549908fff4152ed1417b63ec9a78706[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Sat Dec 7 02:10:49 2024 +0700
+
+     hoàn thiện giao diện chức năng dag bổ sung thêm
+
+[33mcommit 3f2395c0b2866ea5d956d53159ee3a6a87da14cc[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Sat Dec 7 01:56:55 2024 +0700
+
+     xong google tất cả chức năng
+
+[33mcommit 18846e3c6f1b9b87133dc87dc9f4e8a10c5f6c6f[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Fri Dec 6 18:22:27 2024 +0700
+
+     sửa lại các tính năng vẫn dang sửa
+
+[33mcommit c5f81c26438e5dadf288059057180185a6003870[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Wed Dec 4 16:27:45 2024 +0700
+
+    Add .env to .gitignore and stop tracking
+
+[33mcommit a5e47837973e081eeb9142ac695b0d5afbdeab84[m
+Merge: 1234a87 b6709b8
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Wed Dec 4 16:27:33 2024 +0700
+
+    Add .env to .gitignore and stop tracking
+
+[33mcommit 1234a879b1cc4e1250df352381ccada8a01cf2ce[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Wed Dec 4 16:20:03 2024 +0700
+
+    cap nhật dang nhập google vẫn dang sửa
+
+[33mcommit b6709b8735157b789f8d6cf634c7e6f00b28772a[m
+Author: Trần Minh Quang <115066646+minhquang203@users.noreply.github.com>
+Date:   Wed Dec 4 12:34:23 2024 +0700
+
+    Delete server/.env
+
+[33mcommit b0d0c8952d5569c2ce60e1c7c05dd043a2a304d8[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Wed Dec 4 12:18:16 2024 +0700
+
+    update tính năng đăng nhập google và dang chỉnh sửa
+
+[33mcommit 9d8d1d43061ccbd035028a6061e07df391d08394[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Sat Nov 30 10:33:08 2024 +0700
+
+     làm xong phần thanh tìm kiếm
+
+[33mcommit 4db54163dda5159cff2511570ab37e32cd3c8ed2[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Fri Nov 29 14:17:49 2024 +0700
+
+    dang cập nhật chỉnh sửa lại
+
+[33mcommit 01f00dedba2f6520c4f3ae2469ff828eecfe2f12[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Thu Nov 28 22:34:26 2024 +0700
+
+    cập nhật những thông tin cần thiết khi bi hình ảnh
+
+[33mcommit 9021d5fbc543da0a35436b50aa63c51eb5c5cffd[m
+Author: Trần Minh Quang <115066646+minhquang203@users.noreply.github.com>
+Date:   Thu Nov 28 21:53:10 2024 +0700
+
+    Delete HomeStay/client/src/pages directory
+
+[33mcommit 043d264af21765f7bd63daae7457dabd94a7d095[m
+Author: MinhQuang <tranminhquang082003@gmail.com>
+Date:   Thu Nov 28 21:48:26 2024 +0700
+
+    new code

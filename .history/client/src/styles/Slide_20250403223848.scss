@@ -1,0 +1,42 @@
+.slidePage {
+  width: 100vw;
+  height: 80vh;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../public/assets/slide.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* Hiệu ứng fade-in mượt mà */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: white;
+  position: relative;
+  z-index: 1;
+  padding: 20px 40px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.4); /* Nền mờ nhẹ */
+  
+  /* Tạo hiệu ứng bóng đổ nhẹ cho chữ */
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}

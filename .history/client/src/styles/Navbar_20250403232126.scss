@@ -1,0 +1,195 @@
+@import "./breakpoints.scss";
+@import "./variable.scss";
+
+.navbar {
+  padding: 15px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: $form-background;
+  box-shadow: $box-shadow-small;
+  transition: all 0.3s ease;
+
+  @include media-query(sm) {
+    padding: 10px 20px;
+  }
+
+  img {
+    width: 120px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &_menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    a {
+      text-decoration: none;
+      color: $darkgrey;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $pinkred;
+      }
+    }
+
+    @include media-query(sm) {
+      display: none;
+    }
+  }
+
+  &_search {
+    border: 1px solid $grey;
+    border-radius: 30px;
+    height: 50px;
+    padding: 0 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 400px;
+    background-color: $form-background;
+    transition: box-shadow 0.3s ease;
+
+    input {
+      border: none;
+      outline: none;
+      flex: 1;
+      padding: 5px 10px;
+      font-size: 1rem;
+      color: $darkgrey;
+      background-color: transparent;
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+
+    &:hover {
+      box-shadow: $box-shadow-large;
+    }
+
+    @include media-query(sm) {
+      display: none;
+    }
+  }
+
+  &_right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .navbar_right_host {
+      text-decoration: none;
+      color: $darkgrey;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $pinkred;
+      }
+
+      @include media-query(sm) {
+        display: none;
+      }
+    }
+
+    &_account {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      border: 1px solid $grey;
+      border-radius: 30px;
+      gap: 10px;
+      background-color: $form-background;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        box-shadow: $box-shadow-large;
+        transform: translateY(-2px);
+      }
+
+      svg {
+        color: $darkgrey;
+        font-size: 1.2rem;
+      }
+    }
+
+    &_accountmenu {
+      position: absolute;
+      background-color: $form-background;
+      right: 60px;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      width: 220px;
+      padding: 10px 0;
+      border: 1px solid $lightgrey;
+      border-radius: 12px;
+      box-shadow: $box-shadow-large;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+
+      &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      @include media-query(sm) {
+        right: 20px;
+      }
+
+      a {
+        width: 100%;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: $darkgrey;
+        font-weight: 600;
+        display: block;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          color: $pinkred;
+          background-color: rgba(217, 213, 213, 0.2);
+        }
+      }
+    }
+  }
+
+  /* Hiệu ứng sticky khi cuộn */
+  &.scrolled {
+    background-color: $lightgrey;
+    box-shadow: $box-shadow-large;
+  }
+}

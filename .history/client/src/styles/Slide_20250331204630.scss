@@ -1,0 +1,35 @@
+.slidePage {
+  width: 100vw;
+  height: 80vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../public/assets/slide.jpg");
+  background-position: center top;
+  background-size: contain;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+
+  animation: moveRight 2s ease-out forwards; /* Di chuyển từ trái sang phải */
+}
+
+/* Định nghĩa keyframe cho hiệu ứng chuyển động từ trái sang phải */
+@keyframes moveRight {
+  0% {
+    transform: translateX(-100%); /* Bắt đầu bên ngoài màn hình (trái) */
+  }
+  100% {
+    transform: translateX(0); /* Kết thúc tại vị trí ban đầu */
+  }
+}
+
+h1 {
+  padding: 40px 20px;
+  font-size: 40px;
+  text-align: center;
+  color: white;
+  z-index: 1; /* Đảm bảo văn bản luôn ở trên hình nền */
+  position: relative;
+}

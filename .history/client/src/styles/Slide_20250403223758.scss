@@ -1,0 +1,57 @@
+.slidePage {
+  width: 100vw;
+  height: 80vh;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)),
+    url("../../public/assets/slide.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+
+  animation: zoomIn 1.5s ease-out forwards;
+}
+
+/* Hiệu ứng zoom-in khi xuất hiện */
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+h1 {
+  font-size: 44px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: white;
+  position: relative;
+  z-index: 1;
+  padding: 15px 30px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(5px);
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  
+  animation: glowText 3s infinite alternate ease-in-out;
+}
+
+/* Hiệu ứng ánh sáng động */
+@keyframes glowText {
+  0% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    text-shadow: 0 0 25px rgba(255, 255, 255, 1);
+  }
+}

@@ -1,0 +1,126 @@
+@import "./breakpoints.scss";
+@import "./variable.scss";
+
+.navbar {
+  padding: 10px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background-color: #ffff;
+  box-shadow: $box-shadow-small;  // Dùng biến shadow nhỏ cho navbar
+
+  @include media-query(sm) {
+    padding: 10px 20px;
+  }
+
+  img {
+    width: 100px;
+    cursor: pointer;
+  }
+
+  &_search {
+    border: 1px solid $grey;
+    border-radius: 30px;
+    height: 50px;
+    padding: 0 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: 350px;
+
+    input {
+      border: none;
+      outline: none;
+      flex: 1;
+      padding: 5px 10px;
+    }
+
+    &:hover {
+      box-shadow: $box-shadow-small;
+    }
+
+    @include media-query(lg) {
+      width: 500px;
+    }
+
+    @include media-query(sm) {
+      display: none;
+    }
+  }
+
+  &_right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .navbar_right_host {
+      text-decoration: none;
+      color: $darkgrey;
+      font-weight: 700;
+      cursor: pointer;
+
+      &:hover {
+        color: $pinkred;
+      }
+
+      @include media-query(sm) {
+        display: none;
+      }
+    }
+
+    &_account {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border: 1px solid $grey;
+      border-radius: 30px;
+      gap: 10px;
+      background-color: #ffff;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: $box-shadow-large;
+      }
+
+      svg {
+        color: $darkgrey;
+      }
+    }
+
+    &_accountmenu {
+      position: absolute;
+      background-color: #ffff;
+      right: 60px;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      padding: 10px 0;
+      border: 1px solid $lightgrey;
+      border-radius: 20px;
+      box-shadow: $box-shadow-large;
+      z-index: 9999;
+
+      @include media-query(sm) {
+        right: 20px;
+      }
+
+      a {
+        width: 100%;
+        padding: 8px 15px;
+        text-decoration: none;
+        color: $grey;
+        font-weight: 700;
+        display: block;
+
+        &:hover {
+          color: $pinkred;
+          background-color: rgba(217, 213, 213, 0.2);
+        }
+      }
+    }
+  }
+}
